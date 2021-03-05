@@ -1261,7 +1261,6 @@
                 var old_submit = m.submit;
                 m.submit = function (event) {
                     console.log('submit function');
-                    console.log(data);
                     event.preventDefault();
                     if (current_I == N - 1) {
                         if ($("input[name='SB_1']:checked").val() == "0") {
