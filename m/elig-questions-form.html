@@ -1060,10 +1060,12 @@
                                     <div class="text-center">
                                         Contact Us
                                         <br><br>
-                                        Phone: (02) 9114 0421<br>
-                                        Email: woolcock.nrs@sydney.edu.au<br><br>
-                                        Thanks you for your time and effort,<br>
-                                        <b>The Non-Restorative Sleep Study Research Team</b><br>
+                                        rick.wassing@sydney.edu.au<br><br>
+                                        Thank you for your time and effort,<br>
+                                        <b>
+                                            The Sleep and Circadian Research Team<br>
+                                            Woolcock Institute of Medical Research, Glebe, NSW
+                                        </b>
                                     </div>
                                 </div>
                             </div>
@@ -1258,6 +1260,8 @@
                 //---------------------------------------
                 var old_submit = m.submit;
                 m.submit = function (event) {
+                    console.log('submit function');
+                    console.log(data);
                     event.preventDefault();
                     if (current_I == N - 1) {
                         if ($("input[name='SB_1']:checked").val() == "0") {
