@@ -1156,14 +1156,14 @@
                 //PSQI-------------------
                 var N = 4;
                 var current_I = 1;
+                var scores={};
                 //---------------------------------------
-                m.before_submit = function (data, index) {
-                    //StopBang-------------------
-                    data.SB=(parseInt(data.SB_1)+parseInt(data.SB_2)+parseInt(data.SB_3)+parseInt(data.SB_4)+parseInt(data.SB_5)+parseInt(data.SB_6)+parseInt(data.SB_7)+parseInt(data.SB_8)).toString();
+                var calc_scores=function(){
+                    scores.SB=(parseInt($("input[name='SB_1']:checked").val())+parseInt($("input[name='SB_2']:checked").val())+parseInt($("input[name='SB_3']:checked").val())+parseInt($("input[name='SB_4']:checked").val())+parseInt($("input[name='SB_5']:checked").val())+parseInt($("input[name='SB_6']:checked").val())+parseInt($("input[name='SB_7']:checked").val())+parseInt($("input[name='SB_8']:checked").val())).toString();
                     //StopBang-------------------
                     //ISI-------------------
-                    data.ISI=(parseInt(data.ISI_2)+parseInt(data.ISI_3)+parseInt(data.ISI_4)+parseInt(data.ISI_5)+parseInt(data.ISI_1a)+parseInt(data.ISI_1b)+parseInt(data.ISI_1c)).toString();
-                    data.ISI_1=(parseInt(data.ISI_1a)+parseInt(data.ISI_1b)+parseInt(data.ISI_1c)).toString();
+                    scores.ISI=(parseInt($("input[name='ISI_2']:checked").val())+parseInt($("input[name='ISI_3']:checked").val())+parseInt($("input[name='ISI_4']:checked").val())+parseInt($("input[name='ISI_5']:checked").val())+parseInt($("input[name='ISI_1a']:checked").val())+parseInt($("input[name='ISI_1b']:checked").val())+parseInt($("input[name='ISI_1c']:checked").val())).toString();
+                    scores.ISI_1=(parseInt($("input[name='ISI_1a']:checked").val())+parseInt($("input[name='ISI_1b']:checked").val())+parseInt($("input[name='ISI_1c']:checked").val())).toString();
                     //ISI-------------------
                     //PSQI-------------------
                     var v1=$("input[name='PSQI1']").val();
@@ -1197,15 +1197,15 @@
                     if(v4<=7 && v4>=6) vpsqi1=1;
                     if(v4<6 && v4>=5) vpsqi1=2;
                     if(v4<5) vpsqi1=3;
-                    data.PSQIDURAT=vpsqi1.toString();
+                    scores.PSQIDURAT=vpsqi1.toString();
                     var pqsi5j=0;
                     if(v14=='') pqsi5j=0; else pqsi5j=v15;
                     var vpsqi2=parseInt(v6)+parseInt(v7)+parseInt(v8)+parseInt(v9)+parseInt(v10)+parseInt(v11)+parseInt(v12)+parseInt(v13)+parseInt(pqsi5j);
-                    if(vpsqi2==0) data.PSQIDISTB="0";
-                    if(vpsqi2>=1 && vpsqi2<=9) data.PSQIDISTB="1";
-                    if(vpsqi2>9 && vpsqi2<=18) data.PSQIDISTB="2";
-                    if(vpsqi2>18) data.PSQIDISTB="3";
-                    console.log('Sleep dist: '+vpsqi3i+' - '+ v5i+' - '+ data.PSQIDISTB)
+                    if(vpsqi2==0) scores.PSQIDISTB="0";
+                    if(vpsqi2>=1 && vpsqi2<=9) scores.PSQIDISTB="1";
+                    if(vpsqi2>9 && vpsqi2<=18) scores.PSQIDISTB="2";
+                    if(vpsqi2>18) scores.PSQIDISTB="3";
+                    console.log('Sleep dist: '+vpsqi3i+' - '+ v5i+' - '+ scores.PSQIDISTB)
                     var vpsqi3=0;
                     if(v2>=0 && v2<=15) vpsqi3=0;
                     if(v2>15 && v2<=30) vpsqi3=1;
@@ -1213,17 +1213,17 @@
                     if(v2>60) vpsqi3=3;
                     var vpsqi3i=parseInt(vpsqi3)
                     var v5i=parseInt(v5)        
-                    if((vpsqi3i+v5i)==0) data.PSQILATEN="0";
-                    if((vpsqi3i+v5i)>=1 && (vpsqi3i+v5i)<=2) data.PSQILATEN="1";
-                    if((vpsqi3i+v5i)>=3 && (vpsqi3i+v5i)<=4) data.PSQILATEN="2";
-                    if((vpsqi3i+v5i)>=5 && (vpsqi3i+v5i)<=6) data.PSQILATEN="3";
-                    console.log('Sleep laten: '+vpsqi3i+' - '+ v5i+' - '+ data.PSQILATEN)
+                    if((vpsqi3i+v5i)==0) scores.PSQILATEN="0";
+                    if((vpsqi3i+v5i)>=1 && (vpsqi3i+v5i)<=2) scores.PSQILATEN="1";
+                    if((vpsqi3i+v5i)>=3 && (vpsqi3i+v5i)<=4) scores.PSQILATEN="2";
+                    if((vpsqi3i+v5i)>=5 && (vpsqi3i+v5i)<=6) scores.PSQILATEN="3";
+                    console.log('Sleep laten: '+vpsqi3i+' - '+ v5i+' - '+ scores.PSQILATEN)
                     var v18i=parseInt(v18)
                     var v19i=parseInt(v19)
-                    if((v18i+v19i)==0) data.PSQIDAYDYS="0";
-                    if((v18i+v19i)>=1 && (v18i+v19i)<=2) data.PSQIDAYDYS="1";
-                    if((v18i+v19i)>=3 && (v18i+v19i)<=4) data.PSQIDAYDYS="2";
-                    if((v18i+v19i)>=5 && (v18i+v19i)<=6) data.PSQIDAYDYS="3";
+                    if((v18i+v19i)==0) scores.PSQIDAYDYS="0";
+                    if((v18i+v19i)>=1 && (v18i+v19i)<=2) scores.PSQIDAYDYS="1";
+                    if((v18i+v19i)>=3 && (v18i+v19i)<=4) scores.PSQIDAYDYS="2";
+                    if((v18i+v19i)>=5 && (v18i+v19i)<=6) scores.PSQIDAYDYS="3";
                     var startTime = v1;
                     var endTime = v3;
                     var startTimeArray = startTime.split(":");
@@ -1248,22 +1248,42 @@
                     v4=parseFloat(v4)*60*100;
                     var vpsqi4=v4/result;
                     console.log(v4+' - '+result+' - '+vpsqi4);
-                    if(vpsqi4>=85) data.PSQIHSE="0";
-                    if(vpsqi4<85 && vpsqi4>=75) data.PSQIHSE="1";
-                    if(vpsqi4<75 && vpsqi4>=65) data.PSQIHSE="2";
-                    if(vpsqi4<65) data.PSQIHSE="3";
-                    data.PSQISLPQUAL=v16;
-                    data.PSQIMEDS=v17;
+                    if(vpsqi4>=85) scores.PSQIHSE="0";
+                    if(vpsqi4<85 && vpsqi4>=75) scores.PSQIHSE="1";
+                    if(vpsqi4<75 && vpsqi4>=65) scores.PSQIHSE="2";
+                    if(vpsqi4<65) scores.PSQIHSE="3";
+                    scores.PSQISLPQUAL=v16;
+                    scores.PSQIMEDS=v17;
+                    scores.PSQI=( parseInt(scores.PSQIDURAT)+ parseInt(scores.PSQIDISTB)+ parseInt(scores.PSQILATEN)+ parseInt(scores.PSQIDAYDYS)+  parseInt(scores.PSQIHSE)+  parseInt(scores.PSQISLPQUAL)+ parseInt(scores.PSQIMEDS)).toString();
+                    //PSQI-------------------
+                }
+                m.before_submit = function (data, index) {
+                    //StopBang-------------------
+                    data.SB=scores.SB;
+                    //StopBang-------------------
+                    //ISI-------------------
+                    data.ISI=scores.ISI;
+                    data.ISI_1=scores.ISI_1;
+                    //ISI-------------------
+                    //PSQI-------------------
+                    data.PSQIDURAT=scores.PSQIDURAT;
+                    data.PSQIDISTB=scores.PSQIDISTB;
+                    data.PSQILATEN=scores.PSQILATEN;
+                    data.PSQIDAYDYS=scores.PSQIDAYDYS;
+                    data.PSQIHSE=scores.PSQIHSE;
+                    data.PSQISLPQUAL=scores.PSQISLPQUAL;
+                    data.PSQIMEDS=scores.PSQIMEDS;
                     data.PSQI=( parseInt(data.PSQIDURAT)+ parseInt(data.PSQIDISTB)+ parseInt(data.PSQILATEN)+ parseInt(data.PSQIDAYDYS)+  parseInt(data.PSQIHSE)+  parseInt(data.PSQISLPQUAL)+ parseInt(data.PSQIMEDS)).toString();
                     //PSQI-------------------
                 }
                 //---------------------------------------
                 var old_submit = m.submit;
                 m.submit = function (event) {
+                    calc_scores();
                     console.log('submit function');
                     event.preventDefault();
                     if (current_I == N - 1) {
-                        if ($("input[name='SB_1']:checked").val() == "0") {
+                        if (scores.ISI < 15 || scores.SB < 4 ) {
                             $('#F__ID *').removeAttr('disabled');
                             old_submit(event);
                             if (m.prefix == undefined) { $vm.load_module('not_elig', '', {}); }
