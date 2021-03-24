@@ -1212,10 +1212,11 @@
                         ).toString();
                     //ISI-------------------
                     //PSQI-------------------
-                    // var v1=$("input[name='PSQI1']").val();
-                    var v1=Picker_PSQI1.getDate(true);
+                    scores.PSQI1=Picker_PSQI1.getDate(true);
+                    scores.PSQI3=Picker_PSQI3.getDate(true);
+                    var v1=scores.PSQI1;
                     var v2=$("input[name='PSQI2']").val();
-                    var v3=Picker_PSQI3.getDate(true);
+                    var v3=scores.PSQI3;
                     var v4=$("input[name='PSQI4']").val();
                     var v5=$("input[name='PSQI5a']:checked").val();
                     var v6=$("input[name='PSQI5b']:checked").val();
@@ -1314,6 +1315,8 @@
                     data.ISI_1=scores.ISI_1;
                     //ISI-------------------
                     //PSQI-------------------
+                    data.PSQI1=scores.PSQI1;
+                    data.PSQI3=scores.PSQI3;
                     data.PSQIDURAT=scores.PSQIDURAT;
                     data.PSQIDISTB=scores.PSQIDISTB;
                     data.PSQILATEN=scores.PSQILATEN;
