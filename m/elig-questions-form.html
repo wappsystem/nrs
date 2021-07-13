@@ -14,11 +14,11 @@
                     <span>What is your biological sex?</span>
                     <fieldset class="">
                       <label class="radiobuttons">
-                        <input type="radio" name="DEMO_1" value="M" required />
+                        <input type="radio" name="Sex" value="M" required />
                         <span class="checkmark"></span> Male</label
                       >
                       <label class="radiobuttons">
-                        <input type="radio" name="DEMO_1" value="F" />
+                        <input type="radio" name="Sex" value="F" />
                         <span class="checkmark"></span> Female</label
                       >
                     </fieldset>
@@ -29,11 +29,11 @@
                     <span>Are you between 18 and 65 years of age?</span>
                     <fieldset class="">
                       <label class="radiobuttons">
-                        <input type="radio" name="DEMO_2" value="0" required />
+                        <input type="radio" name="Age" value="0" required />
                         <span class="checkmark"></span> No</label
                       >
                       <label class="radiobuttons">
-                        <input type="radio" name="DEMO_2" value="1" />
+                        <input type="radio" name="Age" value="1" />
                         <span class="checkmark"></span> Yes</label
                       >
                     </fieldset>
@@ -47,11 +47,11 @@
                     >
                     <fieldset class="">
                       <label class="radiobuttons">
-                        <input type="radio" name="DEMO_3" value="0" required />
+                        <input type="radio" name="Alcohol" value="0" required />
                         <span class="checkmark"></span> No</label
                       >
                       <label class="radiobuttons">
-                        <input type="radio" name="DEMO_3" value="1" />
+                        <input type="radio" name="Alcohol" value="1" />
                         <span class="checkmark"></span> Yes</label
                       >
                     </fieldset>
@@ -64,11 +64,16 @@
                     >
                     <fieldset class="">
                       <label class="radiobuttons">
-                        <input type="radio" name="DEMO_4" value="0" required />
+                        <input
+                          type="radio"
+                          name="Pregnant"
+                          value="0"
+                          required
+                        />
                         <span class="checkmark"></span> No</label
                       >
                       <label class="radiobuttons">
-                        <input type="radio" name="DEMO_4" value="1" />
+                        <input type="radio" name="Pregnant" value="1" />
                         <span class="checkmark"></span> Yes</label
                       >
                     </fieldset>
@@ -82,11 +87,16 @@
                     </span>
                     <fieldset class="">
                       <label class="radiobuttons">
-                        <input type="radio" name="DEMO_5" value="0" required />
+                        <input
+                          type="radio"
+                          name="Shiftwork"
+                          value="0"
+                          required
+                        />
                         <span class="checkmark"></span> No</label
                       >
                       <label class="radiobuttons">
-                        <input type="radio" name="DEMO_5" value="1" />
+                        <input type="radio" name="Shiftwork" value="1" />
                         <span class="checkmark"></span> Yes</label
                       >
                     </fieldset>
@@ -2521,10 +2531,10 @@
           //---------------------------------------
           var calc_scores=function(){
               //DEMO-------------------
-              scores.age=$("input[name='DEMO_2']:checked").val();
-              scores.alcohol=$("input[name='DEMO_3']:checked").val();
-              scores.pregnant=$("input[name='DEMO_4']:checked").val();
-              scores.shiftwork=$("input[name='DEMO_5']:checked").val();
+              scores.age=$("input[name='Age']:checked").val();
+              scores.alcohol=$("input[name='Alcohol']:checked").val();
+              scores.pregnant=$("input[name='Pregnant']:checked").val();
+              scores.shiftwork=$("input[name='Shiftwork']:checked").val();
               //DEMO-------------------
               //StopBang-------------------
               scores.SB_stop=(
@@ -2683,6 +2693,41 @@
               scores.DASS_A=((parseInt(scores.DASS_2)+parseInt(scores.DASS_4)+parseInt(scores.DASS_7)+parseInt(scores.DASS_9)+parseInt(scores.DASS_15)+parseInt(scores.DASS_19)+parseInt(scores.DASS_20))).toString();
               scores.DASS_S=((parseInt(scores.DASS_1)+parseInt(scores.DASS_6)+parseInt(scores.DASS_8)+parseInt(scores.DASS_11)+parseInt(scores.DASS_12)+parseInt(scores.DASS_14)+parseInt(scores.DASS_18))).toString();
               //DASS--------------------
+              // check if eligible or not
+              scores.isEligible = true;
+              if (scores.age === "0") {
+                scores.isEligible = false;
+              }
+              if (scores.alcohol === "1") {
+                scores.isEligible = false;
+              }
+              if (scores.pregnant === "1") {
+                scores.isEligible = false;
+              }
+              if (scores.shiftwork === "1") {
+                scores.isEligible = false;
+              }
+              if (scores.PSQI ===  "5") {
+                scores.isEligible = false;
+              }
+              if (parseInt(scores.PSQI) <= 5 && parseInt(scores.ISI) >= 7) {
+                scores.isEligible = false;
+              }
+              if (parseInt(scores.SB) >=  5) {
+                scores.isEligible = false;
+              }
+              if (parseInt(scores.SB_stop) >= 2 && parseInt(scores.SB_male) == 1) {
+                scores.isEligible = false;
+              }
+              if (parseInt(scores.SB_stop) >= 2 && parseInt(scores.SB_bmi) == 1) {
+                scores.isEligible = false;
+              }
+              if (parseInt(scores.SB_stop) >= 2 && parseInt(scores.SB_neck) == 1) {
+                scores.isEligible = false;
+              }
+              if (parseInt(scores.DASS_D) > 19 && parseInt(scores.DASS_A) > 14) {
+                scores.isEligible = false;
+              }
           }
           m.before_submit = function (data, index) {
               //StopBang-------------------
@@ -2709,7 +2754,8 @@
               data.DASS_A=scores.DASS_A;
               data.DASS_S=scores.DASS_S;
               //DASS--------------------
-              console.log("data:")
+              data.isEligible=scores.isEligible;
+              console.log("before submit")
               console.log(data)
           }
           //---------------------------------------
@@ -2718,43 +2764,10 @@
               calc_scores();
               console.log('submit function');
               console.log(scores);
-
-              // check if eligible or not
-              var isEligible = true;
-              if (scores.age === "0") {
-                isEligible = false;
-              }
-              if (scores.alcohol === "1") {
-                isEligible = false;
-              }
-              if (scores.pregnant === "1") {
-                isEligible = false;
-              }
-              if (scores.shiftwork === "1") {
-                isEligible = false;
-              }
-              if (scores.PSQI ===  "5") {
-                isEligible = false;
-              }
-              if (parseInt(scores.PSQI) <= 5 && parseInt(scores.ISI) >= 7) {
-                isEligible = false;
-              }
-              if (parseInt(scores.SB) >=  5) {
-                isEligible = false;
-              }
-              if (parseInt(scores.SB_stop) >= 2 && parseInt(scores.SB_male) == 1) {
-                isEligible = false;
-              }
-              if (parseInt(scores.SB_stop) >= 2 && parseInt(scores.SB_bmi) == 1) {
-                isEligible = false;
-              }
-              if (parseInt(scores.SB_stop) >= 2 && parseInt(scores.SB_neck) == 1) {
-                isEligible = false;
-              }
               event.preventDefault();
               if (current_I == N - 1) {
                   // Ineligible if:
-                  if (!isEligible) {
+                  if (!scores.isEligible) {
                       $('#F__ID *').removeAttr('disabled');
                       old_submit(event);
                       if (m.prefix == undefined) { $vm.load_module('not_elig', '', {}); }
