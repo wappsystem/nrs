@@ -144,6 +144,7 @@
                 if(a.length==1) $vm.load_module("home",'',{});
                 else if(a.length==2){
                     $vm.search_module=a[1].split('&')[0].replace(/\//g,'_');
+                    if($vm.search_module=="" || $vm.search_module==undefined )  $vm.search_module="home";                    
                     //-------------------------------------
                     var I=0;
                     var loop=setInterval(function (){
