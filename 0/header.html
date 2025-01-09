@@ -25,11 +25,12 @@
             width:100%;
             background:rgba(0,0,0,0.6);
             z-index:10;
+            opacity: 0;
         }
         .vm-desk-logo{float:left;padding:0;cursor:pointer;}
         #vm-menu{ float:left;padding:50px 30px 0 30px;}
         @media screen and (max-width: 1200px){
-            #header{height:100px;}
+            #header{height:100px; opacity: 0;}
             .vm-desk-logo{display:none;}
             #vm-menu{padding:0;}
         }
@@ -50,7 +51,7 @@
             width:360px;
             height:70px;
             margin:15px 0 0 20px;
-            background: url('__CURRENT_PATH__/../../images/logo_large.png') no-repeat top center;
+            background: url('images/logo_large.png') no-repeat top center;
             background-size: cover;
             /*float:left;*/
             cursor:pointer;
@@ -60,7 +61,7 @@
             width:330px;
             height:80px;
             margin:15px 0 0 20px;
-            background: url('__CURRENT_PATH__/../../images/logo_small.png') no-repeat top center;
+            background: url('images/logo_small.png') no-repeat top center;
             background-size: cover;
             /*float:left;*/
             cursor:pointer;
@@ -154,7 +155,7 @@
         .vm-mobile{
             display:none;
         }
-        #header{ background-image: url(__CURRENT_PATH__/../../images/desktop_banner.png);
+        #header{ background-image: url(images/desktop_banner.png);
             opacity: 0.8;}
         /*----------------------*/
         @media screen and (max-width: 1200px) {
@@ -162,7 +163,7 @@
                 display:block;
             }
             #header{ 
-                background-image: url(__CURRENT_PATH__/../../images/mobile_banner.jpg);
+                background-image: url(images/mobile_banner.jpg);
              }
             .vm-mobile-title{
                 color:var(--mobile-title-color);
